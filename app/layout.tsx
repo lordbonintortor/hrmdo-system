@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "HRMDO Portal",
   description: "Unified Human Resource Management and Development Office portal",
   icons: {
-    icon: "/hrmdo-logo.png",
+    icon: { url: "/hrmdo-favicon.png", type: "image/png" },
     apple: "/hrmdo-logo.png"
   }
 };

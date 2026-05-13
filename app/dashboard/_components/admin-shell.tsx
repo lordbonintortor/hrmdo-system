@@ -29,7 +29,7 @@ const navItems = [
 const utilityNavItems = [
   { label: "Survey", icon: MessageSquareText, accessible: false },
   { label: "Calendar", icon: CalendarDays, accessible: false },
-  { label: "Settings", icon: Settings, accessible: false }
+  { label: "Settings", icon: Settings, href: "/dashboard/settings", accessible: true }
 ];
 
 const hrProgramItems = [
@@ -119,18 +119,28 @@ export function AdminShell({ activePage, title, description, children }: AdminSh
             {utilityNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = item.label === activePage;
+              const itemClassName = `flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium ${
+                isActive
+                  ? "bg-civic-mist text-civic-forest"
+                  : item.accessible
+                    ? "text-civic-ink/65 hover:bg-civic-gold hover:text-civic-ink"
+                    : "cursor-not-allowed text-civic-ink/30"
+              }`;
+
+              if (!item.accessible || !item.href) {
+                return (
+                  <span key={item.label} aria-disabled="true" className={itemClassName}>
+                    <Icon size={18} aria-hidden="true" />
+                    {item.label}
+                  </span>
+                );
+              }
 
               return (
-                <span
-                  key={item.label}
-                  aria-disabled="true"
-                  className={`flex h-10 cursor-not-allowed items-center gap-3 rounded-md px-3 text-sm font-medium ${
-                    isActive ? "bg-civic-mist text-civic-forest" : "text-civic-ink/30"
-                  }`}
-                >
+                <Link key={item.label} href={item.href} className={itemClassName}>
                   <Icon size={18} aria-hidden="true" />
                   {item.label}
-                </span>
+                </Link>
               );
             })}
           </nav>
